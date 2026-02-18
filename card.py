@@ -1,9 +1,10 @@
 from enum import Enum
 class Suits(Enum):
-    HEARTS = "♥️"
-    SPADES = "♠️"
-    DIAMONDS = "♦️"
-    CLUBS = "♣️"
+    #Color Codes
+    HEARTS = "\033[31m♥\033[0m"
+    SPADES = "♠"
+    DIAMONDS = "\033[31m♦\033[0m"
+    CLUBS = "♣"
 
 class Ranks(Enum):
     ONE = 1
@@ -47,8 +48,8 @@ class Card:
         display_card.append(f"┌───────────┐")
         display_card.append(f"│.{r}. . . . .│")
         display_card.append(f"│. . . . . .│")
-        display_card.append(f"│. . ..  . .│")
-        display_card.append(f"│. . .{s} . .│")
+        display_card.append(f"│. . . . . .│")
+        display_card.append(f"│. . .{s}. . .│")
         display_card.append(f"│. . . . . .│")
         display_card.append(f"│. . . . . .│")
         display_card.append(f"│. . . . .{r}.│")

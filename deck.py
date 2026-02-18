@@ -1,7 +1,7 @@
-from random import random
+import random
 
 from card import Card, Ranks, Suits
-class Deck():
+class Deck:
     def __init__(self):
         self.cards = [Card(suit, rank) for suit in Suits for rank in Ranks]
     def shuffle(self):
