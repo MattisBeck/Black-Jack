@@ -1,7 +1,8 @@
 import os
 import time
-from BlackJackPlayer import BlackJackPlayer, Dealer
-from deck import Deck
+from src.engine.players import BlackJackPlayer, Dealer
+from src.engine.deck import Deck
+from src.engine.constants import *
 
 def print_game_state(dealer:Dealer, player_list:list[BlackJackPlayer]) -> None:
     os.system("clear")
@@ -29,6 +30,7 @@ def won(card_value: int) -> None:
 def tie():
     print(f"You Tied!")
 
+
 if __name__ == '__main__':
     while True:
         # Initialize New Deck
@@ -45,7 +47,7 @@ if __name__ == '__main__':
         d1.pull_card(game_deck)
         print_game_state(d1, players)
 
-        time.sleep(3)
+        time.sleep(TIME_BETWEEN_ACTIONS)
         deal_all_players(players, game_deck)
         d1.pull_card(game_deck)
         print_game_state(d1, players)
@@ -57,7 +59,7 @@ if __name__ == '__main__':
             if d1.check_blackjack():
                 skip = True
                 d1.first_round = False
-                time.sleep(3)
+                time.sleep(TIME_BETWEEN_ACTIONS)
                 print_game_state(d1, players)
                 lost()
                 break
@@ -65,7 +67,7 @@ if __name__ == '__main__':
             if p1.check_blackjack():
                 skip = True
                 d1.first_round = False
-                time.sleep(1)
+                time.sleep(TIME_BETWEEN_ACTIONS)
                 print_game_state(d1, players)
                 won(p1.get_hand_value())
                 break
@@ -87,14 +89,14 @@ if __name__ == '__main__':
                 print_game_state(d1, players)
                 if p1.busted():
                     d1.first_round = False
-                    time.sleep(3)
+                    time.sleep(TIME_BETWEEN_ACTIONS)
                     print_game_state(d1, players)
                     lost()
                     skip = True
                     break
                 elif p1.check_blackjack():
                     d1.first_round = False
-                    time.sleep(3)
+                    time.sleep(TIME_BETWEEN_ACTIONS)
                     print_game_state(d1, players)
                     won(p1.get_hand_value())
                     skip = True
@@ -113,7 +115,7 @@ if __name__ == '__main__':
         print_game_state(d1, players)
         while d1.must_hit():
             d1.pull_card(game_deck)
-            time.sleep(3)
+            time.sleep(TIME_BETWEEN_ACTIONS)
             print_game_state(d1, players)
         # Evaluate winner
         if d1.get_hand_value() > 21:
@@ -124,6 +126,5 @@ if __name__ == '__main__':
         # Tie
         elif d1.get_hand_value() ==  p1.get_hand_value():
             tie()
-
         else:
             won(p1.get_hand_value())

@@ -6,6 +6,7 @@ class BlackJackPlayer:
         #14 = Ace; It is either a one or eleven, it gets implemented in get_hand_value
         14: 11
     }
+
     def __init__(self):
         self.hand = []
         self.role = "Player"
@@ -41,15 +42,16 @@ class BlackJackPlayer:
     def check_blackjack(self):
         return self.get_hand_value() == 21
 
-    def show_all_cards(self) -> None:
-        # One list per card within the parent list
-        print(f"{self.role} hand:")
+    def get_hand_str(self) -> str:
+        """
+        get the hand of the player
+        :return: Hand of the player as a string
+        """
         all_cards_by_line = [str(card).split("\n") for card in self.hand]
-        for row in zip(*all_cards_by_line):
-            print("  ".join(row))
-        print("current value:")
-        print(self.get_hand_value())
-        return None
+        return "\n".join(["  ".join(row) for row in zip(*all_cards_by_line)])
+
+    def get_raw_hand(self):
+        return self.hand
 
 
 class Dealer(BlackJackPlayer):
@@ -62,17 +64,14 @@ class Dealer(BlackJackPlayer):
     def must_hit(self):
         return self.get_hand_value() < 17
 
-    def show_all_cards(self) -> None:
+    def get_hand_str(self) -> str:
+        """
+        get the hand of the player
+        :return: Hand of the player as a string
+        """
         # Override method to hide second dealer card
-        print(f"{self.role} hand:")
         all_cards_by_line = [str(card).split("\n") for card in self.hand]
         if self.first_round and len(self.hand) >= 2:
             all_cards_by_line[1] = [f"┌───────────┐", f"│.?. . . . .│", f"│. . . . . .│", f"│. . . . . .│", f"│. . ??? . .│",
                             f"│. . . . . .│", f"│. . . . . .│", f"│. . . . .?.│", f"└───────────┘"]
-        for row in zip(*all_cards_by_line):
-            print("  ".join(row))
-        print("current value:")
-        if self.first_round:
-            print(str(Dealer._correct_card_value(self.hand[0]))+ "?")
-        else:
-            print(self.get_hand_value())
+        return "\n".join(["  ".join(row) for row in zip(*all_cards_by_line)])
