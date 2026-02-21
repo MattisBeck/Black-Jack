@@ -50,7 +50,7 @@ class BlackjackGame:
         """
         fetches current game state
         :return: hands the dealer and all players tuples inside a list in
-        the following order: (player_index (-1 if dealer), hand, hand_value)
+        the following order: (player_index (-1 if dealer), hand (printable), hand_value)
         """
         dealer = (-1, self._dealer.get_raw_hand(), self._dealer.get_hand_value())
         return [dealer] + [(i, player.get_raw_hand(), player.get_hand_value()) for i, player in

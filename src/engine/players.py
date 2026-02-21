@@ -6,10 +6,13 @@ class BlackJackPlayer:
         #14 = Ace; It is either a one or eleven, it gets implemented in get_hand_value
         14: 11
     }
+    _next_id = 0
 
     def __init__(self):
         self.hand = []
         self.role = "Player"
+        self.id = BlackJackPlayer._next_id
+        BlackJackPlayer._next_id += 1
 
     def clear_hand(self) -> None:
         self.hand = []
